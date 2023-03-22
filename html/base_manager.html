@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title></title>
+    <!-- Bootstrap Styles -->
+    <link href="/static/assets/css/bootstrap.css" rel="stylesheet"/>
+    <!-- FontAwesome Styles-->
+    <link href="/static/assets/css/font-awesome.css" rel="stylesheet"/>
+    <!-- Custom Styles-->
+    <link href="/static/assets/css/custom-styles.css" rel="stylesheet"/>
+    <!-- TABLE STYLES-->
+    <link href="/static/assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet"/>
+    <!-- Bootstrap STYLES-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+<div id="wrapper">
+    <nav class="navbar navbar-default top-navbar" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand"><i class="fa fa-gear"></i> <strong>My School</strong></a>
+        </div>
+
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a onclick=logout() style="cursor:pointer"><i class="fa fa-sign-out fa-fw"></i>Log out</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <li><a href="/majors/" style="cursor:pointer"><i class="fa fa-table"></i>All Majors</a>
+                </li>
+                <li><a href="/add_major/" style="cursor:pointer"><i class="fa fa-edit"></i>Add Major</a>
+                </li>
+                <li><a href="/clazzs/" style="cursor:pointer"><i class="fa fa-table"></i>All Classes</a>
+                </li>
+
+                <li><a href="/add_clazz/" style="cursor:pointer"><i class="fa fa-edit"></i>Add Classe</a>
+                </li>
+                <li><a href="/curriculum/" style="cursor:pointer"><i class="fa fa-table"></i>All Courses</a>
+                </li>
+                <li><a href="/add_curriculum/" style="cursor:pointer"><i class="fa fa-edit"></i>Add Course</a>
+                </li>
+                <li><a href="/manager_index/" style="cursor:pointer"><i class="fa fa-table"></i>All Student Information</a>
+                </li>
+                <li><a href="/add_student_info/" style="cursor:pointer"><i class="fa fa-edit"></i>Add Student</a>
+                </li>
+                <li><a href="/teachers_info/" style="cursor:pointer"><i class="fa fa-table"></i>All Teacher Information</a>
+                </li>
+                <li><a href="/add_teacher_info/" style="cursor:pointer"><i class="fa fa-edit"></i>Add Teacher</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+    <div id="page-wrapper">
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="page-header">
+                        {% if title %}
+                            <strong id="welcome">{{ title }}</strong>
+                        {% else %}
+                            <strong id="welcome">Add Teacher</strong>
+                        {% endif %}
+                    </h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {% block content %}{% endblock content %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- jQuery Js -->
+<script src="/static/assets/js/jquery-1.10.2.js"></script>
+<!-- Bootstrap Js -->
+<script src="/static/assets/js/bootstrap.min.js"></script>
+<!-- Metis Menu Js -->
+<script src="/static/assets/js/jquery.metisMenu.js"></script>
+<!-- DATA TABLE SCRIPTS -->
+<script src="/static/assets/js/dataTables/jquery.dataTables.js"></script>
+<script src="/static/assets/js/dataTables/dataTables.bootstrap.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#dataTables-example').dataTable();
+    });
+</script>
+<script src="/static/assets/js/custom-scripts.js"></script>
+
+<script type="text/javascript">
+    function delCookie() {
+        var keys = document.cookie.match(/[^ =;]+(?==)/g)
+        if (keys) {
+            for (var i = keys.length; i--;) {
+                document.cookie = keys[i] + '=0;path=/;expires=' + new Date(0).toUTCString() 
+                document.cookie = keys[i] + '=0;path=/;domain=' + document.domain + ';expires=' + new Date(0).toUTCString() 
+                document.cookie = keys[i] + '=0;path=/;domain=ratingdog.cn;expires=' + new Date(0).toUTCString() 
+            }
+        }
+    }
+
+    function logout() {
+        if (confirm("Continue to logout?")) {
+            window.location.href = '/logout/'
+        }
+    }
+
+    function deleteStudent(sid) {
+        $.get("/delete_student/?id=" + sid, function (data, status) {
+            alert(data.message);
+            location.reload();
+        });
+    }
+
+    function deleteTeacher(sid) {
+        $.get("/delete_teacher/?id=" + sid, function (data, status) {
+            alert(data.message);
+            location.reload();
+        });
+    }
+
+</script>
+<script type="text/javascript">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
