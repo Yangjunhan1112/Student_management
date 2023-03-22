@@ -22,9 +22,9 @@
                     <td>{{ student.name }}</td>
                     <td>{{ student.sex }}</td>
                     <td>{{ student.birth_day }}</td>
-                    <td style="cursor: pointer;"><a
+                    <td style="cursor: pointer;"><a class="btn btn-primary"
                             href="/change_teacher_info/?teacher_id={{ student.id }}">Update</a></td>
-                <td style="cursor: pointer;"><a
+                <td style="cursor: pointer;"><a class="btn btn-primary"
                             href="javascript:void(0);" onclick="deleteTeacher({{ student.id }})">Delete</a>
                     </td>
                 </tr>

@@ -25,9 +25,9 @@
                     <td>{{ student.student_id.birth_day }}</td>
                     <td>{{ student.student_id.native_place }}</td>
                     <td>{{ student.student_id.major }}-{{ student.student_id.clazz }}</td>
-                    <td style="cursor: pointer;"><a
+                    <td style="cursor: pointer;"><a class="btn btn-primary"
                             href="/change_student_info/?student_id={{ student.student_id.id }}">Update</a></td>
-                    <td style="cursor: pointer;"><a
+                    <td style="cursor: pointer;"><a class="btn btn-primary"
                             href="javascript:void(0);" onclick="deleteStudent({{ student.student_id.id }})">Delete</a>
                     </td>
                 </tr>
